@@ -29,6 +29,10 @@ android {
         dataBinding = true
     }
 
+    lintOptions {
+        disable 'HardcodedText'
+    }
+
     buildTypes {
 
         release {
