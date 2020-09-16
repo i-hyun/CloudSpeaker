@@ -1,7 +1,7 @@
 package io.ihyun.cloudspeaker.extension
 
 import android.view.View
-import com.jakewharton.rxbinding3.view.clicks
+import com.jakewharton.rxbinding4.view.clicks
 
 private var lastClickTime = 0L
 

@@ -6,11 +6,11 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 
 abstract class BaseActivity<VB : ViewDataBinding>(
-    @LayoutRes private val res: Int
+    @LayoutRes private val res: Int = 0
 ) : AppCompatActivity() {
 
     private val compositeDisposable = CompositeDisposable()
