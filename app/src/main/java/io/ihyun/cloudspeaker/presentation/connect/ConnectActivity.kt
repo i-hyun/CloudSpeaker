@@ -5,9 +5,10 @@ import android.os.Bundle
 import io.ihyun.cloudspeaker.R
 import io.ihyun.cloudspeaker.databinding.ActivityConnectBinding
 import io.ihyun.cloudspeaker.extension.clickWithThrottle
-import io.ihyun.cloudspeaker.extension.log
+import io.ihyun.cloudspeaker.extension.startActivity
 import io.ihyun.cloudspeaker.presentation.base.BaseActivity
 import io.ihyun.cloudspeaker.presentation.common.AlertBuilder
+import io.ihyun.cloudspeaker.presentation.main.MainActivity
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -25,7 +26,7 @@ class ConnectActivity : BaseActivity<ActivityConnectBinding>(
         super.onCreate(savedInstanceState)
 
         vm.observeConnected()
-            .subscribeBy { test() }
+            .subscribeBy { startActivity(MainActivity::class) }
             .collect()
 
         vm.observeAlertMessage()
@@ -49,12 +50,7 @@ class ConnectActivity : BaseActivity<ActivityConnectBinding>(
     }
 
     private fun showAlert(message: String) {
-
         AlertBuilder(this, message)
             .show()
-    }
-
-    private fun test() {
-        log("HJLEE")
     }
 }
