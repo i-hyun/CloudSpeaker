@@ -33,6 +33,10 @@ android {
         disable 'HardcodedText'
     }
 
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
+
     buildTypes {
 
         release {
@@ -66,4 +70,7 @@ dependencies {
     implementation "org.koin:koin-androidx-scope:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
     implementation "org.koin:koin-androidx-ext:$koin_version"
+
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'com.google.apis:google-api-services-drive:v3-rev197-1.25.0'
 }
