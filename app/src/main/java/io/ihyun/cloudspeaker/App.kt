@@ -2,7 +2,9 @@ package io.ihyun.cloudspeaker
 
 import android.app.Application
 import io.ihyun.cloudspeaker.presentation.connect.ConnectViewModel
+import io.ihyun.cloudspeaker.provider.DropBoxProvider
 import io.ihyun.cloudspeaker.provider.GoogleDriveProvider
+import io.ihyun.cloudspeaker.provider.OneDriveProvider
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.androidx.experimental.dsl.viewModel
@@ -24,6 +26,8 @@ class App : Application() {
 
     private fun getModules() = module {
         factory<GoogleDriveProvider>()
+        factory<OneDriveProvider>()
+        factory<DropBoxProvider>()
 
         viewModel<ConnectViewModel>()
     }

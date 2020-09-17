@@ -10,13 +10,37 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnConnectGoogleDrive"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="GOOGLE DRIVE"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btnConnectOneDrive"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_percent="0.5" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConnectOneDrive"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="ONE DRIVE"
+            app:layout_constraintBottom_toTopOf="@id/btnConnectDropBox"
+            app:layout_constraintEnd_toEndOf="@id/btnConnectGoogleDrive"
+            app:layout_constraintStart_toStartOf="@id/btnConnectGoogleDrive"
+            app:layout_constraintTop_toBottomOf="@id/btnConnectGoogleDrive" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConnectDropBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="DROP BOX"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/btnConnectOneDrive"
+            app:layout_constraintStart_toStartOf="@id/btnConnectOneDrive"
+            app:layout_constraintTop_toBottomOf="@id/btnConnectOneDrive" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

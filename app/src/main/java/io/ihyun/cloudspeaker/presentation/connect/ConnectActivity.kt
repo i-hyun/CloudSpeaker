@@ -37,6 +37,14 @@ class ConnectActivity : BaseActivity<ActivityConnectBinding>(
             .flatMapSingle { vm.requestGoogleDrive() }
             .subscribeBy { startActivityForResult(it, REQUEST_CODE_FOR_GOOGLE_DRIVE) }
             .collect()
+
+        binder.btnConnectOneDrive.clickWithThrottle()
+            .subscribeBy { }
+            .collect()
+
+        binder.btnConnectDropBox.clickWithThrottle()
+            .subscribeBy { }
+            .collect()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
