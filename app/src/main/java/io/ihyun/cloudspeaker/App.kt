@@ -1,7 +1,9 @@
 package io.ihyun.cloudspeaker
 
 import android.app.Application
-import io.ihyun.cloudspeaker.presentation.connect.ConnectViewModel
+import io.ihyun.cloudspeaker.data.OneDriveClient
+import io.ihyun.cloudspeaker.presentation.connect.GoogleDriveConnectViewModel
+import io.ihyun.cloudspeaker.presentation.connect.OneDriveConnectViewModel
 import io.ihyun.cloudspeaker.provider.DropBoxProvider
 import io.ihyun.cloudspeaker.provider.GoogleDriveProvider
 import io.ihyun.cloudspeaker.provider.OneDriveProvider
@@ -11,6 +13,7 @@ import org.koin.androidx.experimental.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import org.koin.experimental.builder.factory
+import org.koin.experimental.builder.single
 
 class App : Application() {
 
@@ -26,9 +29,11 @@ class App : Application() {
 
     private fun getModules() = module {
         factory<GoogleDriveProvider>()
+        single<OneDriveClient>()
         factory<OneDriveProvider>()
         factory<DropBoxProvider>()
 
-        viewModel<ConnectViewModel>()
+        viewModel<GoogleDriveConnectViewModel>()
+        viewModel<OneDriveConnectViewModel>()
     }
 }

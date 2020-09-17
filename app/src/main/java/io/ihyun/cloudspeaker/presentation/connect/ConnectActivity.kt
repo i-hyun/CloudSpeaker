@@ -7,8 +7,8 @@ import io.ihyun.cloudspeaker.databinding.ActivityConnectBinding
 import io.ihyun.cloudspeaker.extension.clickWithThrottle
 import io.ihyun.cloudspeaker.extension.startActivity
 import io.ihyun.cloudspeaker.presentation.base.BaseActivity
-import io.ihyun.cloudspeaker.presentation.common.AlertBuilder
 import io.ihyun.cloudspeaker.presentation.main.MainActivity
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,30 +20,25 @@ class ConnectActivity : BaseActivity<ActivityConnectBinding>(
         private const val REQUEST_CODE_FOR_GOOGLE_DRIVE = 8472
     }
 
-    private val vm by viewModel<ConnectViewModel>()
+    private val googleDriveVm by viewModel<GoogleDriveConnectViewModel>()
+    private val oneDriveVm by viewModel<OneDriveConnectViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        vm.observeConnected()
-            .subscribeBy { startActivity(MainActivity::class) }
-            .collect()
-
-        vm.observeAlertMessage()
-            .subscribeBy(onNext = ::showAlert)
+        Observable.ambArray(
+            googleDriveVm.observeConnected(),
+            oneDriveVm.observeConnected()
+        ).subscribe { startActivity(MainActivity::class) }
             .collect()
 
         binder.btnConnectGoogleDrive.clickWithThrottle()
-            .flatMapSingle { vm.requestGoogleDrive() }
+            .flatMapSingle { googleDriveVm.request() }
             .subscribeBy { startActivityForResult(it, REQUEST_CODE_FOR_GOOGLE_DRIVE) }
             .collect()
 
         binder.btnConnectOneDrive.clickWithThrottle()
-            .subscribeBy { }
-            .collect()
-
-        binder.btnConnectDropBox.clickWithThrottle()
-            .subscribeBy { }
+            .subscribeBy { oneDriveVm.request(this) }
             .collect()
     }
 
@@ -53,12 +48,7 @@ class ConnectActivity : BaseActivity<ActivityConnectBinding>(
         if (resultCode != RESULT_OK || data == null) return
 
         when (requestCode) {
-            REQUEST_CODE_FOR_GOOGLE_DRIVE -> vm.responseGoogleDrive(data)
+            REQUEST_CODE_FOR_GOOGLE_DRIVE -> googleDriveVm.responseHandler(data)
         }
-    }
-
-    private fun showAlert(message: String) {
-        AlertBuilder(this, message)
-            .show()
     }
 }
